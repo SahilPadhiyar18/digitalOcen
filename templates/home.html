@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>HELLO</title>
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Hello sahil</h1>
+        <table style="width:50%"> 
+             <tr>
+              {% for data in data%}
+              <tr>
+              <th style="font-size:20px">{{ data[0] }}</th>
+              <th style="font-size:20px">{{ data[1] }}</th>
+              
+            </tr>
+              {% endfor %}
+            </tr> 
+        </table>
+    </body>
+</html>
