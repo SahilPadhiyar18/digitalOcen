@@ -36,7 +36,7 @@ def randomNumberGenerator():
 @app.route('/')
 def index():
     #only by sending this page first will the client be connected to the socketio instance
-    return render_template('index.html')
+    return render_template('home.html')
 
 @socketio.on('connect', namespace='/test')
 def test_connect():
