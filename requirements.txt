@@ -13,3 +13,4 @@ python-engineio==4.3.4
 python-socketio==5.7.1
 toml==0.10.2
 Werkzeug==2.2.2
+psycopg2-binary==2.9.3
