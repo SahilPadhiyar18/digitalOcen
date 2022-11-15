@@ -8,6 +8,8 @@ from datetime import datetime
 import json
 import os
 import psycopg2
+import pytz
+
 DATABASE_URL = "postgresql://doadmin:AVNS_Zenizxlwr33GAuLRsBv@db-postgresql-nyc1-45617-do-user-12450016-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require"
 
 app = Flask(__name__)
@@ -188,14 +190,15 @@ def espac():
         if(len(data)<0):
             rpl = "name mismatch"
         else:
+            ist = pytz.timezone('Asia/Calcutta')
             rpl = str(data[0][4]) + str(data[0][7])
 #             print("data",data)
             sql = "UPDATE roomdata SET ping = %s WHERE rid = %s"
             adr = (datetime.now(),name,)
             cur.execute(sql,adr)
-            cur.execute('INSERT INTO currentdata (rid, ac1,ac2)'
-                        'VALUES (%s, %s,%s)',
-                        (name,ac1c, ac2c,))     
+            cur.execute('INSERT INTO currentdata (rid, ac1,ac2,time)'
+                        'VALUES (%s, %s,%s,%s)',
+                        (name,ac1c, ac2c,datetime.now(ist),))     
             conn.commit()
             cur.close()
             conn.close()
