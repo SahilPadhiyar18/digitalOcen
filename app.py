@@ -21,7 +21,7 @@ def validemail():
     try:
         if (request.method == 'POST'):
             name = (request.json['name'])
-            print(name)
+#             print(name)
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
             conn
             cur = conn.cursor()
@@ -73,7 +73,7 @@ def signUpSubmit():
             else:
                 return render_template('signup.html')
     except:
-        print("step3")
+#         print("step3")
         return render_template('signup.html')
 
 
@@ -105,7 +105,7 @@ def logInSubmit():
         name = request.form.get("ck")
         try:
             conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-            conn
+#             conn
             cur = conn.cursor()
             sql = 'SELECT * FROM logindata WHERE email = %s;'
             cur.execute(sql,(emailid,))
@@ -113,7 +113,7 @@ def logInSubmit():
             cur.close()
             conn.close()
             if(data[0][4]==password):
-                print("passowed")
+#                 print("passowed")
                 # print("data[0][6]",data[0][6])
                 if(data[0][6] == "admin"):
                     try:
@@ -142,7 +142,7 @@ def logInSubmit():
                         string += "'"
                         cur.execute(string)
                         task = cur.fetchall()  
-                        print(string)
+#                         print(string)
                         cur.close()
                         conn.close()
                         return render_template('user.html' ,name = data[0][1],tasks=task[::-1])
@@ -155,20 +155,20 @@ def logInSubmit():
                         string += "'"
                         cur.execute(string)
                         task = cur.fetchall()  
-                        print(string)
+#                         print(string)
                         cur.close()
                         conn.close()
                         task.sort()
-                        for i in task:
-                            print(i)
+#                         for i in task:
+#                             print(i)
                         return render_template('user.html' ,name = data[0][1],tasks=task[::-1])
                     else:    
                         return render_template('user.html' ,name = data[0][1])
             else:
-                print("encorrect pass")
+#                 print("encorrect pass")
                 return render_template('login.html')
         except:
-            print("pass")
+#             print("pass")
             return render_template('login.html')
 
 
@@ -176,9 +176,11 @@ def logInSubmit():
 def espac():
     try:      
         name = str(request.args.get('name'))
+        ac1c = str(request.args.get('ac1'))
+        ac2c = str(request.args.get('ac2'))
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cur = conn.cursor()
-        print("name",name)
+#         print("name",name)
         sql = "SELECT * FROM roomdata WHERE rid = %s"
         var = (name, )
         cur.execute(sql,var)
@@ -187,10 +189,13 @@ def espac():
             rpl = "name mismatch"
         else:
             rpl = str(data[0][4]) + str(data[0][7])
-            print("data",data)
+#             print("data",data)
             sql = "UPDATE roomdata SET ping = %s WHERE rid = %s"
             adr = (datetime.now(),name,)
             cur.execute(sql,adr)
+            cur.execute('INSERT INTO currentdata (rid, ac1,ac2)'
+                        'VALUES (%s, %s,%s)',
+                        (name,ac1c, ac2c,))     
             conn.commit()
             cur.close()
             conn.close()
@@ -241,7 +246,7 @@ def cheakbox():
 def deleteRoom():
     rid = (request.json['rid'])
     name = (request.json['name'])
-    print(rid,name) 
+#     print(rid,name) 
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = conn.cursor()
     cur.execute('DELETE FROM roomdata WHERE rid = %s',
@@ -309,7 +314,7 @@ def accesslist():
     namelist = cur.fetchall()
     cur.execute('SELECT * FROM roomaccess where name = %s;',(name,))
     data = cur.fetchall()
-    print(data)
+#     print(data)
     conn.commit()
     cur.close()
     conn.close()
@@ -334,7 +339,7 @@ def accessasignsub():
     name =    request.form.get("name")
     rid =  request.form.get("rid")
     hour = request.form.get("hour")
-    print(name,rid,hour)
+#     print(name,rid,hour)
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     conn
     cur = conn.cursor()
