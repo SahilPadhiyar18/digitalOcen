@@ -87,33 +87,43 @@
   <div class="row">
     <div class="column">
       <table>
-        <th style="font-size:25px">Name</th>
+        <th style="font-size:25px">NO</th>
       </table>
     </div>
     <div class="column">
       <table>
-          <th style="font-size:25px">Status</th>
+          <th style="font-size:25px">Name</th>
       </table>
     </div>
     <div class="column">
       <table>
-          <th style="font-size:25px">on method</th>
+          <th style="font-size:25px">Ac1</th>
       </table>
     </div>
 
     <div class="column">
       <table>
-          <th style="font-size:25px">time</th>
+          <th style="font-size:25px">Ac2</th>
       </table>
     </div>
     <div class="column">
       <table>
-          <th style="font-size:25px">date</th>
+          <th style="font-size:25px">date/Time</th>
       </table>
     </div>
   </div>
 
   <div class="row">
+    <div class="column">
+      <table>
+        {% for data in data%}
+            <tr class="table_header">
+                <th style="font-size:20px">{{ data[0] }}</th>
+            </tr>
+        {% endfor %}
+      </table>
+    </div>
+
     <div class="column">
       <table>
         {% for data in data%}
@@ -139,6 +149,16 @@
           {% for data in data%}
           <tr class="table_header">
               <th style="font-size:20px">{{ data[3] }}</th>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+      <div class="column">
+        <table>
+          {% for data in data%}
+          <tr class="table_header">
+              <th style="font-size:20px">{{ data[4] }}</th>
           </tr>
           {% endfor %}
         </table>
