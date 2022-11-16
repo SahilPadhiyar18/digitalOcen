@@ -46,6 +46,15 @@ def signup():
 @app.route('/loginpage', methods=['GET', 'POST']) #base root
 def loginpage():    
     return render_template('login.html')
+@app.route('/logs', methods=['GET', 'POST']) 
+def logs():
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM currentdata;')
+    data = cur.fetchall()
+    cur.close()
+    conn.close()
+    return render_template('log.html',data = data[::-1])
 
 @app.route('/signUpSubmit', methods=['POST'])
 def signUpSubmit():
